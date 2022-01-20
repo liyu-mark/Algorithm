@@ -1,5 +1,8 @@
 package offer.day2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 剑指 Offer 35. 复杂链表的复制
  *
@@ -8,14 +11,22 @@ package offer.day2;
 public class CopyRandomListMain {
 
     public Node copyRandomList(Node head) {
-        Node dumpy = new Node(-1);
-        Node p = dumpy;
-        while (head!=null){
-            p.next = head;
-            p = head;
-            head = head.next;
+        HashMap<Node,Node> map = new HashMap<>();
+        Node p = head;
+        while (p!=null){
+            Node clon = new Node(p.val);
+            clon.next=null;
+            clon.random=null;
+            map.put(p,clon);
+            p=p.next;
         }
-        return dumpy.next;
+        p=head;
+        while (p!=null){
+            map.get(p).next = map.get(p.next);
+            map.get(p).random = map.get(p.random);
+            p = p.next;
+        }
+        return map.get(head);
     }
 
 }
