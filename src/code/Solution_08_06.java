@@ -16,7 +16,7 @@ import java.util.*;
 public class Solution_08_06 {
 
     public static void main(String[] args) {
-        String[] ans = new String[]{"mass","as","hero","superhero"};
+        String[] ans = new String[]{"leetcoder","leetcode","od","hamlet","am"};
         Solution_08_06 main = new Solution_08_06();
         List<String> matching = main.stringMatching(ans);
 
@@ -45,7 +45,7 @@ public class Solution_08_06 {
             String first = wordsList.get(i);
             for (int j = i; j < wordsList.size(); j++) {
                 String second = wordsList.get(j);
-                if (second.length() > first.length() && second.contains(first)){
+                if (second.length() > first.length() && second.contains(first) && !ans.contains(first)){
                     ans.add(first);
                 }
             }
