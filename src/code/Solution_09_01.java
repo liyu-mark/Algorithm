@@ -2,6 +2,8 @@ package code;
 
 import com.sun.media.jfxmediaimpl.HostUtils;
 
+import java.util.Stack;
+
 /**
  * 给你一个数组 prices ，其中 prices[i] 是商店里第 i 件商品的价格。
  * 商店里正在进行促销活动，如果你要买第 i 件商品，那么你可以得到与 prices[j] 相等的折扣，
@@ -21,7 +23,7 @@ public class Solution_09_01 {
 
     public static void main(String[] args) {
         Solution_09_01 code = new Solution_09_01();
-        int[] finalPrices = code.finalPrices(new int[]{8, 4, 6, 2, 3});
+        int[] finalPrices = code.finalPricesLowerStack(new int[]{8, 4, 6, 2, 3});
         for (int val :
                 finalPrices) {
             System.out.println(val);
@@ -46,4 +48,17 @@ public class Solution_09_01 {
         return ans;
     }
 
+    //单调栈解法
+    public int[] finalPricesLowerStack(int[] prices) {
+        int[] ans = new int[prices.length];
+        Stack<Integer> stack = new Stack<>();
+        for (int i = prices.length-1; i >= 0 ; i--) {
+            while (!stack.isEmpty() && stack.peek()>prices[i]){
+                stack.pop();
+            }
+            ans[i] = stack.isEmpty()?prices[i]:prices[i]-stack.peek();
+            stack.push(prices[i]);
+        }
+        return ans;
+    }
 }
